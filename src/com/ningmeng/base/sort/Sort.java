@@ -11,10 +11,10 @@ public class Sort {
 
 	public static void main(String[] args) {
 		int[] arr = {3, 2, 5, 4, 1, 10, 8 ,9, 7, 6, 9, 6, 2, 0, 10};
-//		treeSort(arr);
+		treeSort(arr);
 //		radixSort(arr, 10);
 //		quickSort(arr);
-		bubbleSort(arr);
+//		bubbleSort(arr);
 		System.out.println(Arrays.toString(arr));
 	}
 
