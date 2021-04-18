@@ -6,9 +6,9 @@ package com.ningmeng.leetcode;
  * @Version 1.0
  */
 public class TreeNode {
-	int val;
-	TreeNode left;
-	TreeNode right;
+	public int val;
+	public TreeNode left;
+	public TreeNode right;
 
 	TreeNode() {
 	}
@@ -21,5 +21,14 @@ public class TreeNode {
 		this.val = val;
 		this.left = left;
 		this.right = right;
+	}
+
+	@Override
+	public String toString() {
+		return "{" +
+				"val=" + val +
+				", left=" + left +
+				", right=" + right +
+				'}';
 	}
 }
