@@ -7,8 +7,49 @@ package com.ningmeng.leetcode;
  */
 public class Number28 {
 
-	public static void main(String[] args) {
-		System.out.println(strStr("abcdefg", "ed"));
+	public static void main(String[] args) throws InterruptedException {
+		String p = "aaaaaaab";
+		String str1 = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
+
+		str1 = str1.repeat(100000 * 100);
+		String finalStr = str1;
+		Thread thread = new Thread(() -> {
+			long l = System.currentTimeMillis();
+			for (int i = 0; i < 1; i++) {
+				int i1 = finalStr.indexOf(p);
+			}
+			long now = System.currentTimeMillis();
+			System.out.println("indexOf " + (now - l));
+		});
+
+		Thread thread2 = new Thread(() -> {
+			long l = System.currentTimeMillis();
+			for (int i = 0; i < 1; i++) {
+				strStr(finalStr, p);
+			}
+			long now = System.currentTimeMillis();
+			System.out.println("strStr " + (now - l));
+		});
+
+		Thread thread3 = new Thread(() -> {
+			long l = System.currentTimeMillis();
+			for (int i = 0; i < 1; i++) {
+				bm(finalStr , p);
+			}
+			long now = System.currentTimeMillis();
+			System.out.println("bm " + (now - l));
+		});
+
+		thread.start();
+		thread2.start();
+		thread3.start();
+
+		thread.join();
+		thread2.join();
+		thread3.join();
+
+
+
 	}
 
 	/**
@@ -48,5 +89,60 @@ public class Number28 {
 		}
 
 		return res;
+	}
+
+
+
+	public static int bm(String haystack, String needle) {
+		if (haystack.length() < needle.length()) {
+			return -1;
+		}
+		int[] arr = new int[128];
+
+		for (int i = 0; i < 128; i++) {
+			arr[i] = -1;
+		}
+		for (int i = 0; i < needle.length(); i++) {
+			arr[needle.charAt(i)] = i;
+		}
+
+		int res = -1;
+
+		int i = 0;
+		int j = needle.length() - 1;
+
+		while (i <= haystack.length() - needle.length()) {
+
+			if (haystack.charAt(j + i) == needle.charAt(j)) {
+				if (j == 0) {
+					return i;
+				}
+				j--;
+			} else {
+
+				int move = j - arr[haystack.charAt(i + j)];
+				if (move < 1) {
+					move = 1;
+				}
+				i += move;
+				j = needle.length() - 1;
+			}
+		}
+
+		return res;
+
+	}
+
+	private static int getMove(char target, int q, String p) {
+
+		assert q < p.length();
+		for (int i = q - 1; i >= 0; i++) {
+			if (p.charAt(i) == target) {
+				return p.length() - 1 - i;
+			}
+		}
+
+
+		return -1;
 	}
 }
