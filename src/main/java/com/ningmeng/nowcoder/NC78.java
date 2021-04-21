@@ -8,6 +8,22 @@ package com.ningmeng.nowcoder;
 
 public class NC78 {
 
+	public static void main(String[] args) {
+		ListNode listNode = new ListNode(0);
+		ListNode temp = listNode;
+		for (int i = 1; i < 6; i++) {
+			temp.next = new ListNode(i);
+			temp = temp.next;
+		}
+
+		ListNode res = ReverseList2(listNode);
+
+		while (res != null) {
+			System.out.print(res.val);
+			res = res.next;
+		}
+	}
+
 
 	public ListNode ReverseList(ListNode head) {
 
@@ -25,6 +41,18 @@ public class NC78 {
 		}
 
 		return temp;
+	}
+
+	public static ListNode ReverseList2(ListNode node) {
+
+		if (node.next == null) {
+			return node;
+		}
+
+		ListNode n = ReverseList2(node.next);
+		node.next.next = node;
+		node.next = null;
+		return n;
 	}
 
 
