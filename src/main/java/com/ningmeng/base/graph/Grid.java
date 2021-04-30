@@ -158,7 +158,6 @@ public class Grid<T> {
 		way[s] = -1;
 		// 使用过的顶点
 		boolean[] used = new boolean[size];
-		Arrays.fill(used, false);
 		used[s] = true;
 
 		while (true) {

@@ -145,11 +145,112 @@ public class Graph2 {
 
 	}
 
+	public int[] dijkstra(int start, int target) {
 
+		boolean[] used = new boolean[matrix.length];
+		int[] way = new int[matrix.length];
+		Arrays.fill(way, start);
+		way[start] = -1;
 
+		used[start] = true;
+		int[] dist = new int[matrix.length];
+		System.arraycopy(matrix[start], 0, dist, 0, matrix.length);
+		while(true) {
+			int index = 0;
+			index = getMinWeight(dist, used, index, start);
+
+			if (index == -1) {
+				break;
+			}
+
+			used[index] = true;
+
+			int[] arr = matrix[index];
+			for (int i = 0; i < matrix.length; i++) {
+				if(arr[i] != Integer.MAX_VALUE && arr[i] + dist[index] < dist[i] && !used[i]) {
+					dist[i] = arr[i] + dist[index];
+					way[i] = index;
+				}
+			}
+		}
+
+		return way;
+	}
+
+	private int getMinWeight(int[] dist, boolean[] used, int index, int start) {
+
+		int weight = Integer.MAX_VALUE;
+		int result = -1;
+
+		// 第一次循环
+		if (index == start) {
+			for (int i = 0; i < dist.length; i++) {
+				if (!used[i] && dist[i] > 0 && dist[i] < weight) {
+					weight = dist[i];
+					result = i;
+				}
+			}
+		}
+		// 其他的
+		else {
+			for (int i = 0; i < dist.length; i++) {
+				int target = matrix[index][i];
+				if (!used[i] && target > 0 && target < weight ) {
+					weight = target;
+					result = i;
+				}
+			}
+		}
+
+		return result;
+	}
 
 
 	public static void main(String[] args) {
+//		run();
+		run2();
+
+	}
+
+
+	private static void run2() {
+		Graph2 graph = new Graph2();
+		graph.initMatrix(13);
+
+		graph.add(0,1,3);
+		graph.add(0,2,2);
+		graph.add(0,3,2);
+
+		graph.add(1,4,4);
+		graph.add(1,3,1);
+
+		graph.add(2,4,5);
+
+		graph.add(3,5,1);
+		graph.add(3,4,3);
+
+		graph.add(4,6,3);
+		graph.add(5,6,4);
+
+		graph.add(6,7,6);
+		graph.add(6,8,8);
+		graph.add(6,9,8);
+
+		graph.add(7,10,7);
+		graph.add(7,11,9);
+
+		graph.add(8,11,10);
+
+		graph.add(9,12,10);
+		graph.add(11,12,10);
+
+		int[] dijkstra = graph.dijkstra(0, 12);
+
+		System.out.println(Arrays.toString(dijkstra));
+
+	}
+
+	private static void run() {
 		Graph2 graph = new Graph2();
 
 		graph.initMatrix(11);
@@ -184,8 +285,14 @@ public class Graph2 {
 		graph2.add(1,4,5);
 		graph2.add(1,5,5);
 		graph2.add(2,3,2);
-		graph2.add(2,4,4);
-		graph2.add(3,5,3);
+		graph2.add(3,4,4);
+		graph2.add(2,5,3);
 		graph2.prim2();
+
+		int[] dijkstra = graph2.dijkstra(0, 3);
+
+		System.out.println("------------");
+
+		System.out.println(Arrays.toString(dijkstra));
 	}
 }
