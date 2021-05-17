@@ -10,7 +10,8 @@ import java.util.LinkedList;
 public class Number101 {
 
 	public static void main(String[] args) {
-		TreeNode generate = generate();
+		Integer[] arr = {1,2,2,3,4,4,3};
+		TreeNode generate = generate(arr);
 
 		System.out.println(isSymmetric(generate));
 	}
@@ -63,8 +64,8 @@ public class Number101 {
 	}
 
 
-	public static TreeNode generate() {
-		Integer[] arr = {1,2,2,3,4,4,3};
+	public static TreeNode generate(Integer[] arr) {
+
 		LinkedList<TreeNode> treeNodes = new LinkedList<>();
 		treeNodes.add(new TreeNode(arr[0]));
 		for (int i = 1; i < arr.length; i++) {
