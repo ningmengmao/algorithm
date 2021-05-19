@@ -28,9 +28,8 @@ public class Number1738 {
 				} else {
 					arr[i][j] = matrix[i][j] ^ arr[i - 1][j] ^ arr[i][j - 1] ^ arr[i - 1][j - 1];
 				}
-				if (arr[i][j] >= pq.peek()) {
-					pq.offer(arr[i][j]);
-				}
+				pq.offer(arr[i][j]);
+
 			}
 		}
 
