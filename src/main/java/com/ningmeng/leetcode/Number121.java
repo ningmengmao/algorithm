@@ -15,17 +15,29 @@ public class Number121 {
 	public static int maxProfit(int[] prices) {
 
 		int res = 0;
-		int[] dp = new int[prices.length];
-
-		dp[0] = 0;
+		int before = 0;
 		int min = prices[0];
 
 		for(int i = 1; i < prices.length; i++) {
-			dp[i] = Math.max(dp[i - 1], prices[i] - min);
+			res = Math.max(before, prices[i] - min);
 			min = Math.min(prices[i], min);
+			before = res;
 		}
 
-		return dp[prices.length - 1];
+		return res;
+
+//		int res = 0;
+//		int[] dp = new int[prices.length];
+//
+//		dp[0] = 0;
+//		int min = prices[0];
+//
+//		for(int i = 1; i < prices.length; i++) {
+//			dp[i] = Math.max(dp[i - 1], prices[i] - min);
+//			min = Math.min(prices[i], min);
+//		}
+//
+//		return dp[prices.length - 1];
 
 	}
 }
