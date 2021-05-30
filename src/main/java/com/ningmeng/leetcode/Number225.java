@@ -23,13 +23,19 @@ public class Number225 {
 
 		/** Push element x onto stack. */
 		public void push(int x) {
-			while(!stack.isEmpty()) {
-				temp.offer(stack.poll());
-			}
+			int size = stack.size();
 			stack.offer(x);
-			while(!temp.isEmpty()) {
-				stack.offer(temp.poll());
+			for (int i = 0; i < size; i++) {
+				stack.offer(stack.poll());
 			}
+//			while(!stack.isEmpty()) {
+//				temp.offer(stack.poll());
+//			}
+//			stack.offer(x);
+//			while(!temp.isEmpty()) {
+//				stack.offer(temp.poll());
+//			}
+
 		}
 
 		/** Removes the element on top of the stack and returns that element. */
