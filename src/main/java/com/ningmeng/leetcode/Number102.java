@@ -20,7 +20,7 @@ public class Number102 {
 		LinkedList<TreeNode> tempQueue = new LinkedList<>();
 
 		queue.addLast(root);
-
+		LinkedList<TreeNode> t;
 		while(!queue.isEmpty()) {
 			LinkedList<Integer> temp = new LinkedList<>();
 			while (!queue.isEmpty()) {
@@ -33,9 +33,9 @@ public class Number102 {
 					tempQueue.offer(root.right);
 				}
 			}
-			while(!tempQueue.isEmpty()) {
-				queue.offer(tempQueue.remove());
-			}
+			t = queue;
+			queue = tempQueue;
+			tempQueue = t;
 			res.add(temp);
 		}
 		return res;
